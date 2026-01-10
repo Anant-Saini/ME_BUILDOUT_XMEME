@@ -51,7 +51,8 @@ public class GlobalExceptionHandler {
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
   }
 
-  @ExceptionHandler(Exception.class)
+  @ExceptionHandler(
+      Exception.class) // This will handle any unspecified exception of the springboot application
   public ResponseEntity<ErrorResponseDto> handleAllUncaughtExceptions(
       Exception ex, HttpServletRequest request) {
     ErrorResponseDto error =
