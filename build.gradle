@@ -5,6 +5,7 @@ plugins {
     id 'com.github.spotbugs' version '4.7.1'
     id 'checkstyle'
     id 'jacoco'
+    id 'com.diffplug.spotless' version '6.13.0'
 }
 
 group = 'com.crio'
@@ -27,6 +28,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-amqp:2.7.1'
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb:2.7.1'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis:2.7.1'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-web:2.7.1'
     compileOnly 'org.projectlombok:lombok:1.18.24'
     testImplementation 'com.h2database:h2:2.1.214'
@@ -35,8 +37,9 @@ dependencies {
 
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.7.1'
-    testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo:2.7.1'
-    testImplementation 'org.springframework.amqp:spring-rabbit-test:2.7.1'
+    testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo:3.4.8'
+    testImplementation 'org.springframework.amqp:spring-rabbit-test'
+
 }
 
 // Helps faster load times in Crio workspace.
@@ -75,4 +78,15 @@ test {
     useJUnitPlatform()
     testLogging.events ("STANDARD_ERROR")
     testLogging.events ("STANDARD_OUT")
+}
+
+spotless {
+  java {
+    target 'src/**/*.java'
+    googleJavaFormat('1.15.0') // Fixes indentation to 2 or 4 spaces and aligns whitespace
+    importOrder()                    // Fixes lexicographical import order errors
+    removeUnusedImports()            // Cleans up unused imports
+    trimTrailingWhitespace()
+    endWithNewline()
+  }
 }

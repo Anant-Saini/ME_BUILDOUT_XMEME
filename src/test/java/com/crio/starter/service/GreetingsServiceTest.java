@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.crio.starter.data.GreetingsEntity;
 import com.crio.starter.exchange.ResponseDto;
 import com.crio.starter.repository.GreetingsRepository;
-import java.util.Optional;
+import com.crio.starter.service.implementations.GreetingsService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -19,22 +19,20 @@ import org.mockito.quality.Strictness;
 @MockitoSettings(strictness = Strictness.STRICT_STUBS)
 class GreetingsServiceTest {
 
-  @Mock
-  private GreetingsRepository greetingsRepository;
+  @Mock private GreetingsRepository greetingsRepository;
 
-  @InjectMocks
-  private GreetingsService greetingsService;
+  @InjectMocks private GreetingsService greetingsService;
 
   @Test
   void getMessage() {
+    // Arrange
     GreetingsEntity greetingsEntity = getGreeting("001", "Welcome");
-    Mockito.doReturn(greetingsEntity)
-        .when(greetingsRepository).findByExtId("001");
-    ResponseDto responseDto = greetingsService.getMessage("001");
-
+    Mockito.doReturn(greetingsEntity).when(greetingsRepository).findByExtId("001");
     ResponseDto expected = new ResponseDto("Welcome");
+    // Act
+    ResponseDto responseDto = greetingsService.getMessage("001");
+    // Assert
     assertEquals(expected, responseDto);
-
   }
 
   private GreetingsEntity getGreeting(String id, String message) {

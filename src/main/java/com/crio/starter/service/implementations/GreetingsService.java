@@ -1,4 +1,4 @@
-package com.crio.starter.service;
+package com.crio.starter.service.implementations;
 
 import com.crio.starter.exchange.ResponseDto;
 import com.crio.starter.repository.GreetingsRepository;

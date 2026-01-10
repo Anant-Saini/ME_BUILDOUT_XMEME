@@ -12,5 +12,4 @@ public class GreetingsEntity {
   private String extId;
 
   private String message;
-
 }
