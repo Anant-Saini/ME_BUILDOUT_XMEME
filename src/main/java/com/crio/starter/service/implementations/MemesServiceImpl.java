@@ -38,9 +38,8 @@ public class MemesServiceImpl implements MemesService {
 
     try {
       MemeEntity savedMeme = memesRepository.save(meme);
-      MemeCreationResponseDto memeCreationResponseDto =
-          new MemeCreationResponseDto(savedMeme.getId());
-      return memeCreationResponseDto;
+
+      return new MemeCreationResponseDto(savedMeme.getId());
 
     } catch (DuplicateKeyException ex) {
       throw new MemeAlreadyExistsException("This meme already exists!", ex);
