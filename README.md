@@ -1,4 +1,4 @@
-# 🎬 XMeme - Meme Stream Platform
+# 🎬 XMeme - Meme Stream Backend
 
 <div align="center">
 
@@ -18,18 +18,17 @@
 
 ## 📋 Overview
 
-XMeme is a sophisticated backend service built with Spring Boot that powers a meme streaming platform. Users can post memes with metadata (name, caption, image URL) and retrieve the latest 100 memes in real-time. The platform demonstrates modern Java best practices including REST API design, MongoDB integration, Docker containerization, and comprehensive testing.
+XMeme is a simple backend service built with Spring Boot that powers a meme streaming page. Users can post memes with metadata (name, caption, image URL) and retrieve the latest 100 memes in real-time. The platform demonstrates modern Java best practices including REST API design, MongoDB integration, Docker containerization, and comprehensive testing.
 
 ## ✨ Features
 
 - **RESTful API** - Well-designed REST endpoints for meme CRUD operations
 - **MongoDB Integration** - Scalable NoSQL database for meme storage
-- **Docker Support** - Complete containerization with Docker and Docker Compose
+- **Docker Support** - Complete containerization with Docker
 - **API Documentation** - Auto-generated Swagger/OpenAPI documentation
 - **Comprehensive Testing** - Unit and integration tests with JUnit 5 and Mockito
 - **Code Quality** - Spotbugs, Checkstyle, and Jacoco integration
 - **Error Handling** - Robust error response handling and validation
-- **Async Support** - Spring async and task scheduling capabilities
 - **Build Automation** - Gradle-based build system with automated jar generation
 
 ## 🛠 Tech Stack
@@ -39,7 +38,7 @@ XMeme is a sophisticated backend service built with Spring Boot that powers a me
 - **Framework**: Spring Boot 2.7.1
 - **Database**: MongoDB 2.7.1
 - **Build Tool**: Gradle 7.x
-- **Container**: Docker & Docker Compose
+- **Container**: Docker
 
 ### Key Dependencies
 - **Spring Data MongoDB** - Data persistence
@@ -70,12 +69,11 @@ ME_BUILDOUT_XMEME/
 │   │   └── resources/
 │   │       └── application.properties     # Configuration
 │   └── test/                              # Unit and integration tests
-├── sample-data/                           # Sample meme data
+├── sample-data/                           # Sample mongodb collection data
 ├── config/checkstyle/                     # Checkstyle rules
 ├── gradle/                                # Gradle wrapper
 ├── build.gradle                           # Gradle configuration
 ├── Dockerfile                             # Docker configuration
-├── docker-compose.yml                     # Docker Compose setup
 ├── requirements.txt                       # Python dependencies
 └── README.md                              # This file
 ```
@@ -85,7 +83,7 @@ ME_BUILDOUT_XMEME/
 ### Prerequisites
 - Java 11 or higher
 - Gradle 7.x or higher (or use gradlew)
-- Docker and Docker Compose (for containerized setup)
+- Docker (for containerized setup)
 - MongoDB (included in Docker setup)
 
 ### Local Development Setup
@@ -118,11 +116,6 @@ The JAR file will be located in `build/libs/`
 #### Build Docker Image
 ```bash
 docker build -t xmeme:latest .
-```
-
-#### Run with Docker Compose
-```bash
-docker-compose up -d
 ```
 
 This will start:
@@ -178,8 +171,7 @@ GET /api/memes/{id}
   "id": "60d5ec49c1234567890abc12",
   "name": "John Doe",
   "caption": "When you finally understand Spring Boot",
-  "url": "https://example.com/meme.jpg",
-  "createdAt": "2024-01-15T10:30:00.000Z"
+  "url": "https://example.com/meme.jpg"
 }
 ```
 
@@ -236,8 +228,8 @@ Edit `src/main/resources/application.properties`:
 
 ```properties
 # MongoDB Configuration
-spring.data.mongodb.database=xmeme
-spring.data.mongodb.uri=mongodb://localhost:27017
+spring.data.mongodb.database=greetings
+spring.data.mongodb.uri=mongodb://localhost:27017/greetings?authSource=admin
 
 # Server Configuration
 server.port=8080
@@ -248,7 +240,7 @@ spring.application.name=xmeme-api
 ```
 
 ### Docker Configuration
-Edit `docker-compose.yml` to customize:
+
 - MongoDB version
 - Port mappings
 - Environment variables
@@ -258,7 +250,6 @@ Edit `docker-compose.yml` to customize:
 
 - **build.gradle** - Gradle build configuration with all dependencies
 - **Dockerfile** - Docker image build instructions
-- **docker-compose.yml** - Multi-container orchestration
 - **src/main/java/com/crio/starter/XmemeApplication.java** - Spring Boot main class
 - **sample-data/** - Sample JSON data for testing
 
