@@ -16,4 +16,4 @@ COPY . /code
 
 RUN cd /code && chmod +x gradlew && ./gradlew bootjar
 
-CMD /code/start.sh
+CMD ["/code/start.sh"]
