@@ -44,8 +44,8 @@ dependencies {
 }
 
 // Helps faster load times in Crio workspace.
-allprojects {
-    buildDir = '/tmp/external_build'
+jar {
+    enabled = false
 }
 
 spotbugsMain {
